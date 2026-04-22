@@ -1,0 +1,100 @@
+# AURA v3 — Control Guide
+
+
+## START
+    python main.py
+    Show peace sign (index+middle) for 1 sec → cursor starts moving
+
+
+## GESTURES
+
+  MOVE CURSOR
+    ✌️ Index + Middle up (others down)
+    Cursor follows your palm
+    ONLY this pose moves the cursor — everything else freezes it
+
+  LEFT CLICK  (fires ONCE, won't spam)
+    Drop INDEX finger (middle stays up)
+    Cursor freezes → click fires once → raise index back to resume
+
+  RIGHT CLICK  (fires ONCE, won't spam)
+    Drop MIDDLE finger (index stays up)
+    Cursor freezes → right-click fires once → raise middle to resume
+
+  DOUBLE CLICK  (fires ONCE, won't spam)
+    Extend THUMB while holding peace sign (index+middle+thumb)
+    Fires once → go back to peace sign before doing it again
+
+  DRAG
+    Make FIST (all fingers down), hold 0.3 sec
+    Cursor follows palm while dragging
+    Show peace sign to release
+
+  SCROLL  (position-based joystick)
+    Raise RING finger → 3 fingers (index+middle+ring)
+    Cursor stays FROZEN
+    Hand position controls speed:
+      - Center of zone     = no scroll (dead zone)
+      - Slightly up/down   = SLOW scroll
+      - More up/down       = MEDIUM scroll
+      - Near edge of zone  = FAST scroll
+    Like a joystick — the further from center, the faster
+
+  ZOOM  (position-based joystick)
+    Raise ALL fingers → 4 fingers (open hand)
+    Cursor stays FROZEN
+    Same joystick as scroll:
+      - Hand UP from center   = zoom IN
+      - Hand DOWN from center = zoom OUT
+      - Further = faster
+
+  CLUTCH (recenter) — PINKY ONLY 🤙
+    Hold PINKY finger only for 0.2 sec
+    Cursor freezes → move hand → peace sign to resume
+
+  LOCK (full pause) — RING ONLY 💍
+    Hold RING finger only for 0.2 sec
+    Everything stops → peace sign (5f) to unlock
+
+  VOICE TYPING — PINKY + THUMB 🤙👍
+    Extend PINKY and THUMB together (other fingers down)
+    Hold for 0.2 sec → toggles Windows Voice Typing (Win+H)
+    Do the same gesture again to turn it OFF
+    Great for typing without keyboard!
+
+
+## FINGER MAP (zero overlap)
+
+    0 fingers (fist)         = DRAG
+    1 index only             = RIGHT CLICK
+    1 middle only            = LEFT CLICK
+    1 ring only              = LOCK
+    1 pinky only             = CLUTCH
+    1 pinky + thumb          = VOICE TYPING TOGGLE
+    2 index+middle           = MOVE CURSOR (only pose that moves it)
+    2 index+middle + thumb   = DOUBLE CLICK
+    3 index+middle+ring      = SCROLL (cursor frozen, joystick)
+    4+ all fingers           = ZOOM (cursor frozen, joystick)
+
+
+## CLICK RULES
+
+    All clicks fire ONCE per gesture:
+    → Left/right/double click fire exactly one time
+    → Must return to peace sign before clicking again
+    → No spamming, no accidental repeats
+
+
+## SCROLL/ZOOM SPEED
+
+    Position-based (like a joystick):
+    ┌────────────── top of zone ──────────────┐
+    │          FAST scroll up / zoom in        │
+    │          MEDIUM                          │
+    │          SLOW                            │
+    │ ──────── CENTER (dead zone) ──────────── │
+    │          SLOW                            │
+    │          MEDIUM                          │
+    │          FAST scroll down / zoom out     │
+    └────────────── bottom of zone ───────────┘
+    Move hand higher/lower = faster. Center = stop.
