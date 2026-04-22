@@ -85,7 +85,7 @@ pip install -r requirements.txt
 python main.py
 ```
 
-> **⚠️ Important Note:** The `hand_landmarker.task` AI model file is NOT included in this repository due to its file size. Before running the application, you must download the MediaPipe hand landmarker bundle separately and place `hand_landmarker.task` directly into the project root directory alongside `main.py`.
+> **✅ Ready to Use:** The `hand_landmarker.task` AI model file is already included in this repository. Once you clone and install the requirements, you can run the system immediately!
 
 ---
 
@@ -128,7 +128,7 @@ python main.py
 
 | Issue | What to try |
 |-------|-------------|
-| **MediaPipe exits immediately** | Add `hand_landmarker.task` next to `mediapipe_process.py`. |
+| **MediaPipe exits immediately** | Ensure `hand_landmarker.task` is present in the project root folder. |
 | **Clicks too sensitive** | The adaptive threshold handles this automatically. If it persists, hold your hand still for the first 2 seconds of use for clean calibration. |
 | **Cursor wrong after clutch** | Hold pinky-only to clutch, recenter, then extend index clearly up for 4 frames. |
 | **LOCKED exits too fast** | Make sure to close all fingers into a fist. Opening requires 2+ fingers clearly extended. |
