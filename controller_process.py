@@ -215,9 +215,9 @@ def controller_process(landmark_queue: mp.Queue, stop_event: mp.Event, gui_queue
     prev_lm=None; dragging=False
     last_lm=None; last_st="IDLE"; last_act=None; last_conf=0.0
     last_ts=time.time(); prev_ts=None
-    # Drag filter: heavier smoothing for stable dragging
-    dfx=OneEuroFilter(fmin=3.0, beta=0.003)
-    dfy=OneEuroFilter(fmin=3.0, beta=0.003)
+    # Drag filter: responsive enough to follow hand, smooth enough for precision
+    dfx=OneEuroFilter(fmin=5.0, beta=0.008)
+    dfy=OneEuroFilter(fmin=5.0, beta=0.008)
     use_gui = gui_queue is not None
 
     while not stop_event.is_set():
@@ -270,13 +270,18 @@ def controller_process(landmark_queue: mp.Queue, stop_event: mp.Event, gui_queue
                     dy_norm=rny-drag_anchor_ny
                     rsx=drag_cursor_sx+dx_norm*max(sw-1,0)
                     rsy=drag_cursor_sy+dy_norm*max(sh-1,0)
-                    # Use heavier drag filter
+                    # Use drag filter
                     cx=dfx(rsx,last_ts); cy=dfy(rsy,last_ts)
-                    # Tighter anti-teleport during drag (2%)
-                    drag_tp=0.02*float(sw)
+                    # Anti-teleport during drag (5%) — clamp instead of freeze
+                    drag_tp=0.05*float(sw)
                     if st_before=="DRAGGING":
                         d=math.hypot(cx-gx,cy-gy)
-                        if d>drag_tp: dfx.reset(gx,last_ts); dfy.reset(gy,last_ts); cx=gx; cy=gy
+                        if d>drag_tp:
+                            # Clamp to max allowed distance in the same direction
+                            ratio=drag_tp/d
+                            cx=gx+(cx-gx)*ratio
+                            cy=gy+(cy-gy)*ratio
+                            dfx.reset(cx,last_ts); dfy.reset(cy,last_ts)
                 elif clutch_active:
                     rnx,rny=hand_to_norm(inputs["hand_cx"],inputs["hand_cy"])
                     tnx=max(0.0,min(1.0,c_anx+rnx-r_nx))
